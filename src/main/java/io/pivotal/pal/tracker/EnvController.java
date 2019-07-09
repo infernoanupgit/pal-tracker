@@ -10,11 +10,10 @@ import java.util.Map;
 @RestController
 public class EnvController {
 
-    private String port;
-    private String memoryLimit;
-    private String cfInstanceIndex;
-    private String cfInstanceAddress;
-
+    private final String port;
+    private final String memoryLimit;
+    private final String cfInstanceIndex;
+    private final String cfInstanceAddress;
 
     public EnvController(
             @Value("${port:NOT SET}") String port,
@@ -26,19 +25,17 @@ public class EnvController {
         this.memoryLimit = memoryLimit;
         this.cfInstanceIndex = cfInstanceIndex;
         this.cfInstanceAddress = cfInstanceAddress;
-
     }
 
     @GetMapping("/env")
-    public Map<String, String> getEnv(){
+    public Map<String, String> getEnv() {
+        Map<String, String> env = new HashMap<>();
 
-        Map<String, String> envVar = new HashMap<>();
-        envVar.put("port", port);
-        envVar.put("memoryLimit", memoryLimit);
-        envVar.put("cfInstanceIndex", cfInstanceIndex);
-        envVar.put("cfInstanceAddress", cfInstanceAddress);
+        env.put("PORT", port);
+        env.put("MEMORY_LIMIT", memoryLimit);
+        env.put("CF_INSTANCE_INDEX", cfInstanceIndex);
+        env.put("CF_INSTANCE_ADDR", cfInstanceAddress);
 
-        return envVar;
-
+        return env;
     }
 }
